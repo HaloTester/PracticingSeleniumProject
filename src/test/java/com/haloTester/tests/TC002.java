@@ -1,6 +1,8 @@
+package com.haloTester.tests;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import utilities.WebDriverFactory;
+import com.haloTester.utilities.WebDriverFactory;
 
 import java.util.concurrent.TimeUnit;
 
