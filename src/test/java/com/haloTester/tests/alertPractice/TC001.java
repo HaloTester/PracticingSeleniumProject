@@ -1,4 +1,4 @@
-package com.haloTester.tests.AlertPractice;
+package com.haloTester.tests.alertPractice;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Alert;

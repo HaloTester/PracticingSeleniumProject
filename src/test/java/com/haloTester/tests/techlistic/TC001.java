@@ -1,4 +1,4 @@
-package com.haloTester.tests;
+package com.haloTester.tests.techlistic;
 
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
@@ -6,6 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import com.haloTester.utilities.WebDriverFactory;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,25 +25,40 @@ public class TC001 {
     7. Validate that user is created.
     */
 
-    public static void main(String[] args) throws InterruptedException {
+    WebDriver driver;
+    Faker faker;
 
-        WebDriver driver = WebDriverFactory.getDriver("chrome");
-        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
+    @BeforeMethod
+    public void setUp(){
+        driver = WebDriverFactory.getDriver("chrome");
+        driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
+        faker = new Faker();
+    }
+
+    @AfterMethod
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.quit();
+    }
+
+    @Test
+    public void TC001() {
         driver.get("http://automationpractice.com/index.php");
 
         driver.findElement(By.linkText("Sign in")).click();
-
-        Faker faker = new Faker();
 
         driver.findElement(By.name("email_create")).sendKeys(faker.internet().emailAddress());
 
         driver.findElement(By.name("SubmitCreate")).click();
 
         driver.findElement(By.xpath("//input[@id='id_gender1']")).click();
+
         driver.findElement(By.name("customer_firstname")).sendKeys("Ahmet");
+
         driver.findElement(By.name("customer_lastname")).sendKeys("Kirbac");
+
         driver.findElement(By.id("passwd")).sendKeys("123asd");
 
         WebElement dayOfBirth = driver.findElement(By.name("days"));
@@ -79,14 +98,6 @@ public class TC001 {
         String expectedResult = "Ahmet Kirbac";
         String actualResult = driver.findElement(By.xpath("//a[@class='account']")).getText();
 
-        if(actualResult.equals(expectedResult)){
-            System.out.println("PASSED");
-        }else{
-            System.out.println("FAILED");
-            System.out.println("expectedResult = " + expectedResult);
-            System.out.println("actualResult = " + actualResult);
-        }
-
-        driver.quit();
+        Assert.assertEquals(expectedResult, actualResult, "Verify that user is crated");
     }
 }

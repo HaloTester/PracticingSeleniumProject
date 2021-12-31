@@ -1,4 +1,4 @@
-package com.haloTester.tests.AlertPractice;
+package com.haloTester.tests.alertPractice;
 
 
 import com.haloTester.utilities.WebDriverFactory;

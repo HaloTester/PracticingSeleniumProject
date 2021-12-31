@@ -1,9 +1,13 @@
-package com.haloTester.tests;
+package com.haloTester.tests.techlistic;
 
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.haloTester.utilities.WebDriverFactory;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,18 +20,30 @@ public class TC003 {
     5. Verify that error has been displayed for the mandatory fields.
     */
 
-    public static void main(String[] args) {
+    WebDriver driver;
+    Faker faker;
 
-        WebDriver driver = WebDriverFactory.getDriver("chrome");
-        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
-
+    @BeforeMethod
+    public void setUp(){
+        driver = WebDriverFactory.getDriver("chrome");
+        driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
+        faker = new Faker();
+    }
+
+    @AfterMethod
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.quit();
+    }
+
+    @Test
+    public void TC003(){
         driver.get("http://automationpractice.com/index.php");
 
         driver.findElement(By.xpath("//a[contains(text(),'Sign in')]")).click();
 
-        Faker faker = new Faker();
         driver.findElement(By.cssSelector("#email_create")).sendKeys(faker.internet().emailAddress());
 
         driver.findElement(By.xpath("//*[@id='SubmitCreate']")).click();
@@ -37,14 +53,6 @@ public class TC003 {
         String expectedResult = "There are 8 errors";
         String actualResult = driver.findElement(By.xpath("//*[contains(text(),'error')]")).getText();
 
-        if(actualResult.equals(expectedResult)){
-            System.out.println("PASSED");
-        }else{
-            System.out.println("FAILED");
-            System.out.println("expectedResult = " + expectedResult);
-            System.out.println("actualResult = " + actualResult);
-        }
-
-        driver.quit();
+        Assert.assertEquals(expectedResult, actualResult, "Verify that error has been displayed for the mandatory fields");
     }
 }
