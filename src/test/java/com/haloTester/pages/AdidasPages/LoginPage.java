@@ -1,4 +1,4 @@
-package com.haloTester.tests.pages.AdidasPages;
+package com.haloTester.pages.AdidasPages;
 
 import com.haloTester.utilities.ConfigurationReader;
 import com.haloTester.utilities.Driver;

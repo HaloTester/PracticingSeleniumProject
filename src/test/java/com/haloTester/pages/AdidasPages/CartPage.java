@@ -1,4 +1,4 @@
-package com.haloTester.tests.pages.AdidasPages;
+package com.haloTester.pages.AdidasPages;
 
 import com.haloTester.utilities.Driver;
 import com.github.javafaker.Faker;
