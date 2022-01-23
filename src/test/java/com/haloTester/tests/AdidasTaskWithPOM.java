@@ -18,13 +18,13 @@ public class AdidasTaskWithPOM extends TestBase {
     CartPage cartPage = new CartPage();
 
     @Test
-    public void loginTest() throws IOException, InterruptedException {
+    public void loginTest() throws IOException {
         String expectedUsername = "asdfghjklöä";
         loginPage.navigateTo(By.id("login2"));
         loginPage.login();
         System.out.println("loginPage.actualUsername.getText() = " + loginPage.actualUsername.getText());
+        BrowserUtils.waitFor(2);
         String screenShot = "purchase";
-        Thread.sleep(2000);
         BrowserUtils.getScreenshot(screenShot);
         //Assert.assertTrue(loginPage.actualUsername.getText().contains(expectedUsername));
     }
