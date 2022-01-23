@@ -1,2 +1,5 @@
-package com.haloTester.utilities;public class ConfigurationReader {
+package com.haloTester.utilities;
+
+public class ConfigurationReader {
+
 }
